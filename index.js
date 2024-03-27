@@ -1,185 +1,94 @@
-var clearBtn = document.getElementById("clearBtn");
-var sevenBtn = document.getElementById("sevenBtn");
-var fourBtn = document.getElementById("fourBtn");
-var oneBtn = document.getElementById("oneBtn");
-var zeroBtn = document.getElementById("zeroBtn");
-var plusminus = document.getElementById("plusminus");
-var eightBtn = document.getElementById("eightBtn");
-var fiveBtn = document.getElementById("fiveBtn");
-var twoBtn = document.getElementById("twoBtn");
-var name = document.getElementById("name");
-var remender = document.getElementById("remender");
-var nineBtn = document.getElementById("nineBtn")
-var sixBtn = document.getElementById("sixBtn");
-var threeBtn = document.getElementById("threeBtn");
-var decimal = document.getElementById("decimal");
-var divide = document.getElementById("divide");
-var multiply = document.getElementById("multiply");
-var minus = document.getElementById("minus");
-var plus = document.getElementById("plus");
-var equalto = document.getElementById("equalto");
-var number = document.getElementById("number");
+const number = document.getElementById("number");
+const clearBtn = document.getElementById("clearBtn");
+const btns = document.querySelectorAll(".buttons button:not(#clearBtn):not(#equalto)");
+const name = document.getElementById("name");
 
-var count = "";
 
-var holdresult;
-var result;
+let currentNumber = '';
+let previousNumber = '';
+let operator = '';
 
-sevenBtn.onclick = function(){
-    count+= "7";
-    count = Number(count);
-    number.textContent = count;
+// Updates the display
+function updateDisplay() {
+    number.textContent = currentNumber;
 }
 
-nineBtn.onclick = function(){
-    count+= "9";
-    count = Number(count);
-    number.textContent = count;
+// Handles the number button clicks
+function handleNumberClick(num) {
+    currentNumber += num;
+    updateDisplay();
 }
 
-clearBtn.onclick = function(){
-    count = "";
-    number.textContent = count;
-    divide.style.backgroundColor = "orange";
-    divide.style.color = "white";
-    divide.style.transition = "0.3s";
-    multiply.style.backgroundColor = "orange";
-    multiply.style.color = "white";
-    minus.style.backgroundColor = "orange";
-    minus.style.color = "white";
-    plus.style.backgroundColor = "orange";
-    plus.style.color = "white";
-    equalto.style.backgroundColor = "orange";
-    equalto.style.color = "white";
+// Handles the operational button clicks
+function handleOperatorClick(op) {
+    operator = op;
+    previousNumber = currentNumber;
+    currentNumber = '';
 }
 
-fourBtn.onclick = function(){
-    count+= "4";
-    count = Number(count);
-    number.textContent = count;
+// Performs calculation
+function calculate() {
+    let result;
+    const prevNum = parseFloat(previousNumber);
+    const currentNum = parseFloat(currentNumber);
+
+    switch (operator) {
+        case '+':
+            result = prevNum + currentNum;
+            break;
+        case '-':
+            result = prevNum - currentNum;
+            break;
+        case '*':
+            result = prevNum * currentNum;
+            break;
+        case '/':
+            result = prevNum / currentNum;
+            break;
+        default:
+            return;
+    }
+
+    currentNumber = result.toString();
+    previousNumber = '';
+    operator = '';
+    updateDisplay();
 }
 
-oneBtn.onclick = function(){
-    count+= "1";
-    count = Number(count);
-    number.textContent = count;
-}
+// Event listeners for number buttons
+btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        handleNumberClick(btn.textContent);
+    });
+});
 
-zeroBtn.onclick = function(){
-    count+= "0";
-    number.textContent = count;
-}
+// Event listener for clear button
+clearBtn.addEventListener('click', () => {
+    currentNumber = '';
+    previousNumber = '';
+    operator = '';
+    updateDisplay();
+})
+// Event listeners for operator buttons
+document.getElementById("divide").addEventListener('click', () => {
+    handleOperatorClick('/');
+});
 
-eightBtn.onclick = function(){
-    count+= "8";
-    count = Number(count)
-    number.textContent = count;
-}
+document.getElementById("multiply").addEventListener('click', () => {
+    handleOperatorClick('*');
+});
 
-fiveBtn.onclick = function(){
-    count+= "5";
-    count = Number(count)
-    number.textContent  = count;
-}
+document.getElementById("minus").addEventListener('click', () => {
+    handleOperatorClick('-');
+});
 
-twoBtn.onclick = function(){
-    count+= "2";
-    count = Number(count)
-    number.textContent = count;
-}
+document.getElementById("plus").addEventListener('click', () => {
+    handleOperatorClick('+');
+});
 
-sixBtn.onclick = function(){
-    count+= "6";
-    count = Number(count)
-    number.textContent = count;
-}
-
-threeBtn.onclick = function(){
-    count+= "3";
-    count = Number(count)
-    number.textContent = count;
-}
-
-divide.onclick = function(){
-    count = "";
-    number.textContent = count;
-    divide.style.backgroundColor = "powderblue";
-    divide.style.color = "orange";
-    divide.style.transition = "0.3s";
-    multiply.style.backgroundColor = "orange";
-    multiply.style.color = "white";
-    minus.style.backgroundColor = "orange";
-    minus.style.color = "white";
-    plus.style.backgroundColor = "orange";
-    plus.style.color = "white";
-    equalto.style.backgroundColor = "orange";
-    equalto.style.color = "white";
-}
-
-multiply.onclick = function(){
-    count = "";
-    number.textContent = count;
-    multiply.style.backgroundColor = "powderblue";
-    multiply.style.color = "orange";
-    multiply.style.transition = "0.3s";
-    divide.style.backgroundColor = "orange";
-    divide.style.color = "white";
-    minus.style.backgroundColor = "orange";
-    minus.style.color = "white";
-    plus.style.backgroundColor = "orange";
-    plus.style.color = "white";
-    equalto.style.backgroundColor = "orange";
-    equalto.style.color = "white";
-}
-
-minus.onclick = function(){
-    count = "";
-    number.textContent = count;
-    minus.style.backgroundColor = "powderblue";
-    minus.style.color = "orange";
-    minus.style.transition = "0.3s";
-    multiply.style.backgroundColor = "orange";
-    multiply.style.color = "white";
-    divide.style.backgroundColor = "orange";
-    divide.style.color = "white";
-    plus.style.backgroundColor = "orange";
-    plus.style.color = "white";
-    equalto.style.backgroundColor = "orange";
-    equalto.style.color = "white";
-}
-
-plus.onclick = function(){
-    holdresult = count;
-    holdresult = Number(holdresult);
-    number.textContent = count;
-    plus.style.backgroundColor = "powderblue";
-    plus.style.color = "orange";
-    plus.style.transition = "0.3s";
-    multiply.style.backgroundColor = "orange";
-    multiply.style.color = "white";
-    minus.style.backgroundColor = "orange";
-    minus.style.color = "white";
-    divide.style.backgroundColor = "orange";
-    divide.style.color = "white";
-    equalto.style.backgroundColor = "orange";
-    equalto.style.color = "white";
-    count = "";
-}
-
-equalto.onclick = function(){
-    equalto.style.backgroundColor = "powderblue";
-    equalto.style.color = "orange";
-    equalto.style.transition = "0.3s";
-    multiply.style.backgroundColor = "orange";
-    multiply.style.color = "white";
-    minus.style.backgroundColor = "orange";
-    minus.style.color = "white";
-    plus.style.backgroundColor = "orange";
-    plus.style.color = "white";
-    divide.style.backgroundColor = "orange";
-    divide.style.color = "white";
-    result = count + holdresult;
-    number.textContent = result
-    holdresult = 0
-    count = 0
-}
+// Event listener for equal button
+document.getElementById("equalto").addEventListener('click', () => {
+    if (currentNumber !== '' && previousNumber !== '' && operator !== '') {
+        calculate();
+    }
+});
