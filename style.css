@@ -1,0 +1,85 @@
+.container{
+    width: 350px;
+    height: 460px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(96, 107, 112);
+    border-radius: 30px;
+    padding: 30px;
+    padding-bottom: 50px;
+    padding-top: 40px;
+}
+
+.screen{
+    width: 350px;
+    height: 70px;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#number{
+    font-size: 58px;
+    margin-left: 12px;
+}
+
+.buttons{
+    width: 350px;
+    height: 380px;
+    background-color: black;
+    margin-top: 30px;
+    display: flex;
+    /* padding: 0 2px; */
+    padding-top: 3px;
+}
+
+.btnColumns{
+    width: 87.5px;
+    height: 380px;
+    background-color: transparent;
+    border: solid transparent;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    padding-left: 2px;
+}
+
+.btnColumns button{
+    height: 70px;
+    border-radius: 20px;
+    font-size: 40px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    width: 78px;
+}
+
+#oppBtn button{
+    background-color: orange;
+    color: white;
+}
+
+
+#clearBtn{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#name{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.btnColumns button:hover{
+    /* width: 80px; */
+    scale: 1.04;
+}
+
+.btnColumns button:active{
+    background-color: grey;
+    color: white;
+}
